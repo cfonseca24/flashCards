@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-
+import Form from "./components/form";
 
 const cards = [
 	[
@@ -11,10 +11,7 @@ const cards = [
 		"Basketball: Who was the MVP of the 1987 NBA Championship?",
 		"Magic Johnson",
 	],
-	[
-		"Soccer: Which position in soccer is the only one allowed to use their arms or hands to maneuver the ball in play?",
-		"Goalkeeper",
-	],
+	["Soccer: Which position can use hands?", "Goalkeeper"],
 	[
 		"Basketball: Which player did the Los Angeles Lakets sign to a 7-year contract in 1996?",
 		"Shaquille O'Neal",
@@ -26,31 +23,48 @@ const cards = [
 ];
 
 const App = () => {
-
-
-
 	let cardcount = cards.length;
 
-  let [currentCard, nextCard] = useState(0);
+	let [currentCard, nextCard] = useState(0);
 
-  const updateCard = () => {if(currentCard == cards.length - 1){
-                              nextCard(0);
-                            } else{
-                              nextCard(currentCard++);
-                            };}
+	const updateCard = () => {
+		if (currentCard == 4) {
+			nextCard(0);
+			setCard(0);
+		} else {
+			nextCard((currentCard += 1));
+			setCard(0);
+		}
+	};
+
+	const prevCard = () => {
+		if (currentCard == 0) {
+			nextCard(4);
+			setCard(0);
+		} else {
+			nextCard((currentCard -= 1));
+			setCard(0);
+		}
+	};
 
 	let [cardSide, setCard] = useState(0);
 	const flipCard = () => (cardSide == 0 ? setCard(1) : setCard(0));
-
-
 
 	return (
 		<div className="App">
 			<div className="header">
 				<h1>The Ultimate Sport Trivia!</h1>
 				<h2>Number of cards: {cardcount}</h2>
-				<div className = "flashCard" onClick={flipCard}>{cards[currentCard][cardSide]}</div>
-				<button className = "nextCard" onClick={updateCard}>NEXT CARD</button>
+				<div className="flashCard">{cards[currentCard][cardSide]}</div>
+				<div>
+					<Form cardAnswer={cards[currentCard][1]} setCard={setCard} />
+				</div>
+				<button className="prevCard" onClick={prevCard}>
+					⬅️
+				</button>
+				<button className="nextCard" onClick={updateCard}>
+					⏭️
+				</button>
 			</div>
 		</div>
 	);
