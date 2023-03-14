@@ -33,8 +33,7 @@ Here's a walkthrough of implemented required features:
 <img src='card.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
-GIF created with ... 
-
+<!-- Recommended tools:
 LiceCap for macOS
 
 
